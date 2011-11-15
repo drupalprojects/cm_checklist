@@ -13,18 +13,17 @@ function cm_checklist_menu() {
   
   // Adds Community Media Section to Admin Interface
   // Duplicated in cm_show and cm_project, first module installed creates the link
-  if (!module_exists('cm_show') && !module_exists('cm_project')) {
-    $items['admin/config/communitymedia'] = array(
-      'title' => 'Community Media',
-      'description' => 'Configuration options for Community Media modules',
-      'position' => 'right',
-      'page callback' => 'system_admin_menu_block_page',
-      'access arguments' => array('access administration pages'),
-      'file' => 'system.admin.inc',
-      'file path' => drupal_get_path('module', 'system'),
-      'weight' => -99,
-    );
-  }
+  $items['admin/config/communitymedia'] = array(
+    'title' => 'Community Media',
+    'description' => 'Configuration options for Community Media modules',
+    'position' => 'right',
+    'page callback' => 'system_admin_menu_block_page',
+    'access arguments' => array('access administration pages'),
+    'file' => 'system.admin.inc',
+    'file path' => drupal_get_path('module', 'system'),
+    'weight' => -99,
+  );
+  
 
   $items['admin/config/communitymedia/checklist'] = array(
     'title' => 'Configuration Checklist',

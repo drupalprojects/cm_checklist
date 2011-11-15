@@ -121,10 +121,10 @@ function cm_checklist_steps_as_list() {
   );
   
   if (module_exists('legal')) {
-    $cm_crew_connect_status = cm_crew_connect_status();
+    $om_crew_connect_status = om_crew_connect_status();
     $requirements['legal']['value'] = 'Installed';
-    $requirements['legal']['severity'] = $cm_crew_connect_status['severity'];
-    $requirements['legal']['description'] = $cm_crew_connect_status['description'];
+    $requirements['legal']['severity'] = $om_crew_connect_status['severity'];
+    $requirements['legal']['description'] = $om_crew_connect_status['description'];
   } 
   else {
     $requirements['legal']['value'] = 'Not Installed';
@@ -134,22 +134,22 @@ function cm_checklist_steps_as_list() {
   }
   
   //Crew Connect - Step 3
-  $requirements['cm_crew_connect'] = array(
+  $requirements['om_crew_connect'] = array(
     'title' => 'Crew Connect', 
     'weight' => -7, 
   );
   
-  if (module_exists('cm_crew_connect')) {
-    $cm_crew_connect_status = cm_crew_connect_status();
-    $requirements['cm_crew_connect']['value'] = 'Installed';
-    $requirements['cm_crew_connect']['severity'] = $cm_crew_connect_status['severity'];
-    $requirements['cm_crew_connect']['description'] = $cm_crew_connect_status['description'];
+  if (module_exists('om_crew_connect')) {
+    $om_crew_connect_status = om_crew_connect_status();
+    $requirements['om_crew_connect']['value'] = 'Installed';
+    $requirements['om_crew_connect']['severity'] = $om_crew_connect_status['severity'];
+    $requirements['om_crew_connect']['description'] = $om_crew_connect_status['description'];
   } 
   else {
-    $requirements['cm_crew_connect']['value'] = 'Not Installed';
-    $requirements['cm_crew_connect']['severity'] = REQUIREMENT_NOT_INSTALLED; 
-    $requirements['cm_crew_connect']['description'] = t('The ') . l('Crew Connect', 'http://drupal.org/project/cm_crew_connect') . t(' is not installed.') . t(' Use this is a simple tool to help producers connect with each other.  Enabling Crew Connect gives your producers a reason to login to your site and gives you experience managing users and permissions.'); 
-    $requirements['cm_crew_connect']['description'] .= '<p>' . t('Installation Difficulty') .': <b>' . t('Low') . '</b></p>';
+    $requirements['om_crew_connect']['value'] = 'Not Installed';
+    $requirements['om_crew_connect']['severity'] = REQUIREMENT_NOT_INSTALLED; 
+    $requirements['om_crew_connect']['description'] = t('The ') . l('Crew Connect', 'http://drupal.org/project/om_crew_connect') . t(' is not installed.') . t(' Use this is a simple tool to help producers connect with each other.  Enabling Crew Connect gives your producers a reason to login to your site and gives you experience managing users and permissions.'); 
+    $requirements['om_crew_connect']['description'] .= '<p>' . t('Installation Difficulty') .': <b>' . t('Low') . '</b></p>';
   }
   
    //CiviCRM -Step 4
