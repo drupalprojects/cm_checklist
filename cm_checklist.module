@@ -24,31 +24,24 @@ function cm_checklist_menu() {
     'weight' => -99,
   );
   
-
-  $items['admin/config/communitymedia/checklist'] = array(
-    'title' => 'Configuration Checklist',
+  $items['admin/reports/communitymedia-checklist'] = array(
+    'title' => 'Community Media Checklist',
     'description' => 'Display configuration status',
     'page callback' => 'cm_checklist_main',
     'access arguments' => array('access administration pages'),
     'weight' => -99,
-    'file' => 'cm_checklist.admin.inc',
+    'file' => 'cm_checklist.report.inc',
+  );
+    
+  $items['admin/config/communitymedia/checklist'] = array(
+    'title' => 'Checklist Configuration',
+    'description' => 'Configuration options for the Community Media Checklist.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('cm_checklist_admin_settings'),
+    'access arguments' => array('access administration pages'),
+    'type' => MENU_NORMAL_ITEM,
   );
   
-/*
-
-
-  foreach (module_implements('help', TRUE) as $module) {
-    $items['admin/openmedia/checklist/' . $module] = array(
-      'title' => $module,
-      'page callback' => 'cm_checklist_page',
-      'page arguments' => array(2),
-      'access arguments' => array('access administration pages'),
-      'type' => MENU_CALLBACK,
-      'file' => 'cm_checklist.admin.inc',
-    );
-  }
-
-*/
   return $items;
 }
 
@@ -58,11 +51,50 @@ function cm_checklist_menu() {
 function cm_checklist_help($path, $arg) {
   switch ($path) {
     case 'admin/configure/communitymedia/checklist':
-      $output = '<p>' . t('The Open Media System is designed to be implemented incrementally based on each station\'s needs.  This is not an exhaustive checklist, but designed to help you work through the configuration process.') . '</p>';
+      $output = '<p>' . t('The modules developed for Community Media are designed to be implemented incrementally based on each station\'s needs.  This is not an exhaustive checklist, but designed to help you work through the configuration process.') . '</p>';
       
       return $output;
   }
 }
+
+/**
+ * Builds the cm_checklist administration settings form.
+ */
+function cm_checklist_admin_settings($form, &$form_state) {
+  $form = array();
+  
+  /*
+$requirements = array();
+   
+  $cm_checklist_status = cm_checklist_status();
+  $requirements['cm_checklist']['title'] = 'Checklist';
+  $requirements['cm_checklist']['value'] = 'Installed';
+  $requirements['cm_checklist']['severity'] = $cm_checklist_status['severity']; 
+  $requirements['cm_checklist']['description'] = $cm_checklist_status['description'];
+    
+  $status = theme('status_report', array('requirements' => $requirements));
+
+  $form['cm_checklist_status'] = array(
+    '#markup' => $status,
+  );
+*/
+  
+  $form['cm_checklist_markup'] = array(
+    '#type' => 'item',
+    '#title' => t('Getting Involved'),
+    '#markup' => 'If you already have a Drupal.org account, here is how you find the user id.  If you do not have account, you can create one now.',
+  );
+  
+  $form['cm_checklist_drupal_uid'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Drupal User ID'),
+    '#default_value' => variable_get('cm_checklist_drupal_uid', 0),
+    '#description' => t(''),
+  );
+   
+  return system_settings_form($form);
+}
+
 
 /**
  * Checks the Status of the CiviCRM configuration.
@@ -85,7 +117,7 @@ function cm_checklist_civicrm_status(){
 }
 
 /**
- * Checks the Status of the Reservations configuration.
+ * Checks the Status of the Reservations API configuration.
  */
 function cm_checklist_reservations_status(){
   
@@ -102,6 +134,61 @@ function cm_checklist_reservations_status(){
   //if there are no problems, return this
   $status = array(
     'description' => 'Reservations is configured correctly.',
+    'severity' => 0,);
+  return $status;
+}
+
+/**
+ * Checks the Status of the Legal module configuration.
+ */
+function cm_checklist_legal_status(){
+  $conditions = legal_get_conditions();
+  if(!$conditions['tc_id']) {
+  
+    $link = l('terms & condiftions', 'admin/config/people/legal');
+    $status = array(
+      'description' => 'Legal is enabled, but not configured.  Please add your site\'s ' . $link,
+      'severity' => 1,);
+    return $status;
+  }
+  //if there are no problems, return this
+  $status = array(
+    'description' => 'Legal is configured correctly.',
+    'severity' => 0,);
+  return $status;
+}
+
+/**
+ * Checks to see if the Drupal.org uid has been saved 
+ * AND that at least one page of documentation has been added or edited
+ */
+function cm_checklist_documentation_status(){
+  
+  if(variable_get('cm_checklist_drupal_uid', 0) < 1) {
+  
+    $link = l('To continue, add your Drupal.org user id here.', 'admin/config/communitymedia/checklist');
+    $status = array(
+      'description' => 'In order to contribute to the documentation, you must have an account on Drupal.org.  ' . $link,
+      'severity' => 1,);
+    return $status;
+  }
+  
+  //if there are no problems, return this
+  $status = array(
+    'description' => 'You have shown that you can edit documentation on Drupal.org.',
+    'severity' => 0,);
+  return $status;
+}
+
+
+/**
+ * Checks to see if the Drupal.org uid has been saved 
+ * AND that at least one page of documentation has been added or edited
+ */
+function cm_checklist_status(){
+  //if there are no problems, return this
+  $status = array(
+    'description' => 'Checklist needs a Drupal.org ID to continue the configuration.',
     'severity' => 0,);
   return $status;
 }

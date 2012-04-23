@@ -4,6 +4,5 @@ package = Community Media
 
 core = 7.x
 files[] = cm_checklist.module
-files[] = cm_checklist.admin.inc
 
 configure = admin/config/communitymedia/checklist
