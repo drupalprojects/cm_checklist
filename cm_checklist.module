@@ -63,22 +63,6 @@ function cm_checklist_help($path, $arg) {
 function cm_checklist_admin_settings($form, &$form_state) {
   $form = array();
   
-  /*
-$requirements = array();
-   
-  $cm_checklist_status = cm_checklist_status();
-  $requirements['cm_checklist']['title'] = 'Checklist';
-  $requirements['cm_checklist']['value'] = 'Installed';
-  $requirements['cm_checklist']['severity'] = $cm_checklist_status['severity']; 
-  $requirements['cm_checklist']['description'] = $cm_checklist_status['description'];
-    
-  $status = theme('status_report', array('requirements' => $requirements));
-
-  $form['cm_checklist_status'] = array(
-    '#markup' => $status,
-  );
-*/
-  
   $form['cm_checklist_markup'] = array(
     '#type' => 'item',
     '#title' => t('Getting Involved'),
