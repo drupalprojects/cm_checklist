@@ -124,7 +124,7 @@ function cm_checklist_steps_as_list() {
     $requirements['legal']['value'] = 'Not Installed';
     $requirements['legal']['severity'] = REQUIREMENT_NOT_INSTALLED; 
     $requirements['legal']['description'] = t('The ') . l('Legal', 'http://drupal.org/project/legal') . t(' is not installed.') . t(' This module should be installed and configured before you configure anything else that allows members to log in to your site.'); 
-    $requirements['legal']['description'] .= '<p>' . t('Installation Difficulty') .': <b>' . t('Low') . '</b></p>';
+    $requirements['legal']['description'] .= '<p>' . t('Installation Difficulty') .': <b>' . t('Easy') . '</b></p>';
   }
   
   //Show (without VOD) - Check #4
@@ -163,7 +163,7 @@ function cm_checklist_steps_as_list() {
     $requirements['pbcore']['value'] = 'Not Installed';
     $requirements['pbcore']['severity'] = REQUIREMENT_NOT_INSTALLED; 
     $requirements['pbcore']['description'] = t('The ') . l('PBCore', 'http://drupal.org/project/pbcore') . t(' module enables producers to categorize their shows based on this metadata dictionary. It is required Show, but is not automatically configured.'); 
-    $requirements['pbcore']['description'] .= '<p>' . t('Installation Difficulty') .': <b>' . t('Low') . '</b></p>';
+    $requirements['pbcore']['description'] .= '<p>' . t('Installation Difficulty') .': <b>' . t('Easy') . '</b></p>';
   }
   
   //Creative Commons - Check #6
@@ -182,7 +182,7 @@ function cm_checklist_steps_as_list() {
     $requirements['creativecommons']['value'] = 'Not Installed';
     $requirements['creativecommons']['severity'] = REQUIREMENT_NOT_INSTALLED; 
     $requirements['creativecommons']['description'] = l('Creative Commons', 'http://drupal.org/project/creative_commons') . t(' adds licensing options to Show.  Managing rights is complicated and you should understand the difference is the Creative Commons license before enabling this module.'); 
-    $requirements['creativecommons']['description'] .= '<p>' . t('Installation Difficulty') .': <b>' . t('Low') . '</b></p>';
+    $requirements['creativecommons']['description'] .= '<p>' . t('Installation Difficulty') .': <b>' . t('Easy') . '</b></p>';
   }
 
   
@@ -202,7 +202,7 @@ function cm_checklist_steps_as_list() {
     $requirements['om_crew_connect']['value'] = 'Not Installed';
     $requirements['om_crew_connect']['severity'] = REQUIREMENT_NOT_INSTALLED; 
     $requirements['om_crew_connect']['description'] = t('The ') . l('Crew Connect', 'http://drupal.org/project/om_crew_connect') . t(' is not installed.') . t(' Use this is a simple tool to help producers connect with each other.  Enabling Crew Connect gives your producers a reason to login to your site and gives you experience managing users and permissions.'); 
-    $requirements['om_crew_connect']['description'] .= '<p>' . t('Installation Difficulty') .': <b>' . t('Low') . '</b></p>';
+    $requirements['om_crew_connect']['description'] .= '<p>' . t('Installation Difficulty') .': <b>' . t('Easy') . '</b></p>';
   }
   
   //Airing - Check #8
@@ -221,7 +221,7 @@ function cm_checklist_steps_as_list() {
     $requirements['cm_airing']['value'] = 'Not Installed';
     $requirements['cm_airing']['severity'] = REQUIREMENT_NOT_INSTALLED; 
     $requirements['cm_airing']['description'] = t('The ') . l('Community Media Airing', 'http://drupal.org/project/cm_airing') . t(' is not installed.') . t(' Airing nodes are used to display scheduling information from playback server RSS. It includes FullCalendar based Views and Blocks that display upcoming Airings.  When Airing Show Sync is configured, Upcoming airings of a Show or all Shows in a Project can be displayed.'); 
-    $requirements['cm_airing']['description'] .= '<p>' . t('Installation Difficulty') .': <b>' . t('Medium') . '</b></p>';
+    $requirements['cm_airing']['description'] .= '<p>' . t('Installation Difficulty') .': <b>' . t('Moderate') . '</b></p>';
   }
   
    //CiviCRM - Check #9
@@ -240,7 +240,7 @@ function cm_checklist_steps_as_list() {
     $requirements['civicrm']['value'] = 'Not Installed';
     $requirements['civicrm']['severity'] = REQUIREMENT_NOT_INSTALLED; 
     $requirements['civicrm']['description'] =  l('CiviCRM', 'http://drupal.org/project/civicrm') . t(' '); 
-    $requirements['civicrm']['description'] .= '<p>' . t('Installation Difficulty') .': <b>' . t('Medium') . '</b></p>';
+    $requirements['civicrm']['description'] .= '<p>' . t('Installation Difficulty') .': <b>' . t('Moderate') . '</b></p>';
   }
   
   //Project - Check #9
@@ -259,7 +259,7 @@ function cm_checklist_steps_as_list() {
     $requirements['cm_project']['value'] = 'Not Installed';
     $requirements['cm_project']['severity'] = REQUIREMENT_NOT_INSTALLED; 
     $requirements['cm_project']['description'] = t('The ') . l('Community Media Project', 'http://drupal.org/project/cm_project') . t(' module is not installed.') . t(' Use this module to group Shows and Reservations.  The module leverages Organic Groups (OG).  If you decide to allow producers to maintain public Project pages, there are dozens of popular OG modules that extend social networking features.'); 
-    $requirements['cm_project']['description'] .= '<p>' . t('Installation Difficulty') .': <b>' . t('Low') . '</b></p>';
+    $requirements['cm_project']['description'] .= '<p>' . t('Installation Difficulty') .': <b>' . t('Moderate') . '</b></p>';
   }
    
     
@@ -278,7 +278,7 @@ function cm_checklist_steps_as_list() {
     $requirements['reservations']['value'] = 'Not Installed';
     $requirements['reservations']['severity'] = REQUIREMENT_NOT_INSTALLED; 
     $requirements['reservations']['description'] = t('The ') . l('Reservations', 'http://drupal.org/project/reservations') . t(' module is not installed.') . t(' Used to Manage Equipment Reservations and Checkout process'); 
-    $requirements['reservations']['description'] .= '<p>' . t('Installation Difficulty') .': <b>' . t('Moderate') . '</b></p>';
+    $requirements['reservations']['description'] .= '<p>' . t('Installation Difficulty') .': <b>' . t('Difficult') . '</b></p>';
    
   }
     
