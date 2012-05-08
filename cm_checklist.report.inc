@@ -181,7 +181,7 @@ function cm_checklist_steps_as_list() {
   else {
     $requirements['creativecommons']['value'] = 'Not Installed';
     $requirements['creativecommons']['severity'] = REQUIREMENT_NOT_INSTALLED; 
-    $requirements['creativecommons']['description'] = l('Creative Commons', 'http://drupal.org/project/creative_commons') . t(' adds licensing options to Show.  Managing rights is complicated and you should understand the difference is the Creative Commons license before enabling this module.'); 
+    $requirements['creativecommons']['description'] = l('Creative Commons', 'http://drupal.org/project/creativecommons') . t(' adds licensing options to Show.  Managing rights is complicated and you should understand the difference is the Creative Commons license before enabling this module.'); 
     $requirements['creativecommons']['description'] .= '<p>' . t('Installation Difficulty') .': <b>' . t('Easy') . '</b></p>';
   }
 
