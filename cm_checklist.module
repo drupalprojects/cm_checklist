@@ -63,19 +63,26 @@ function cm_checklist_help($path, $arg) {
 function cm_checklist_admin_settings($form, &$form_state) {
   $form = array();
   
-  $form['cm_checklist_markup'] = array(
-    '#type' => 'item',
-    '#title' => t('Getting Involved'),
-    '#markup' => 'If you already have a Drupal.org account, here is how you find the user id.  If you do not have account, you can create one now.',
-  );
+  if (!variable_get('cm_checklist_drupal_uid', 0)) {
+    $form['cm_checklist_markup'] = array(
+      '#type' => 'item',
+      '#title' => t('Getting Involved'),
+      '#markup' => 'If you already have a Drupal.org account, here is how you find the user id.  If you do not have account, you can create one now.',
+    );
   
-  $form['cm_checklist_drupal_uid'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Drupal User ID'),
-    '#default_value' => variable_get('cm_checklist_drupal_uid', 0),
-    '#description' => t(''),
-  );
-   
+    $form['cm_checklist_drupal_uid'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Drupal User ID'),
+      '#default_value' => variable_get('cm_checklist_drupal_uid', 0),
+      '#description' => t(''),
+    );
+  } else {
+    $form['cm_checklist_markup'] = array(
+      '#type' => 'item',
+      '#title' => t('Congratulations!'),
+      '#markup' => 'You\'ve already registered your Drupal ID.  ' . l('Let\'s look at the next step in the Checklist Report.', 'admin/reports/communitymedia-checklist'),
+    );
+  }
   return system_settings_form($form);
 }
 
