@@ -67,7 +67,7 @@ function cm_checklist_admin_settings($form, &$form_state) {
     $form['cm_checklist_markup'] = array(
       '#type' => 'item',
       '#title' => t('Getting Involved'),
-      '#markup' => t('If you already have a Drupal.org account, here is how you find the user id.  If you do not have account, you can create one now.'),
+      '#markup' => t('If you already have a Drupal.org account, <a href="@url">here is how you find the user id</a>.  If you do not have account, you can create one now.', array('@url' => url('https://www.drupal.org/user'))),
     );
   
     $form['cm_checklist_drupal_uid'] = array(
