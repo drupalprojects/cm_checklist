@@ -14,8 +14,8 @@ function cm_checklist_menu() {
   // Adds Community Media Section to Admin Interface
   // Duplicated in cm_show and cm_project, first module installed creates the link
   $items['admin/config/communitymedia'] = array(
-    'title' => 'Community Media',
-    'description' => 'Configuration options for Community Media modules',
+    'title' => t('Community Media'),
+    'description' => t('Configuration options for Community Media modules'),
     'position' => 'right',
     'page callback' => 'system_admin_menu_block_page',
     'access arguments' => array('access administration pages'),
@@ -25,8 +25,8 @@ function cm_checklist_menu() {
   );
   
   $items['admin/reports/communitymedia-checklist'] = array(
-    'title' => 'Community Media Checklist',
-    'description' => 'Display configuration status',
+    'title' => t('Community Media Checklist'),
+    'description' => t('Display configuration status'),
     'page callback' => 'cm_checklist_main',
     'access arguments' => array('access administration pages'),
     'weight' => -99,
@@ -34,8 +34,8 @@ function cm_checklist_menu() {
   );
     
   $items['admin/config/communitymedia/checklist'] = array(
-    'title' => 'Checklist Configuration',
-    'description' => 'Configuration options for the Community Media Checklist.',
+    'title' => t('Checklist Configuration'),
+    'description' => t('Configuration options for the Community Media Checklist.'),
     'page callback' => 'drupal_get_form',
     'page arguments' => array('cm_checklist_admin_settings'),
     'access arguments' => array('access administration pages'),
@@ -67,7 +67,7 @@ function cm_checklist_admin_settings($form, &$form_state) {
     $form['cm_checklist_markup'] = array(
       '#type' => 'item',
       '#title' => t('Getting Involved'),
-      '#markup' => 'If you already have a Drupal.org account, here is how you find the user id.  If you do not have account, you can create one now.',
+      '#markup' => t('If you already have a Drupal.org account, here is how you find the user id.  If you do not have account, you can create one now.'),
     );
   
     $form['cm_checklist_drupal_uid'] = array(
@@ -80,7 +80,7 @@ function cm_checklist_admin_settings($form, &$form_state) {
     $form['cm_checklist_markup'] = array(
       '#type' => 'item',
       '#title' => t('Congratulations!'),
-      '#markup' => 'You\'ve already registered your Drupal ID.  ' . l('Let\'s look at the next step in the Checklist Report.', 'admin/reports/communitymedia-checklist'),
+      '#markup' => t('You\'ve already registered your Drupal ID. <a href="@url">Let\'s look at the next step in the Checklist Report</a>.', array('@url' => url('admin/reports/communitymedia-checklist'))),
     );
   }
   return system_settings_form($form);
@@ -95,14 +95,14 @@ function cm_checklist_civicrm_status(){
   //CHECK 1 - CiviGroup Roles or CiviGroup Group Sync configured?
   if (!module_exists('civicrm_member_roles') && !module_exists('civicrm_group_roles') ) {
     $status = array(
-    'description' => 'CiviCRM is installed, but neither CiviGroup Roles and CiviGroup Group Sync are configured.  This is how information membership and certification information is shared between Drupal and CiviCRM.  <a href="http://drupal.org/node/1013546">Step by step instructions for configuring CiviGroup Roles and CiviGroup Group Sync</a>',
+    'description' => t('CiviCRM is installed, but neither CiviGroup Roles and CiviGroup Group Sync are configured.  This is how information membership and certification information is shared between Drupal and CiviCRM.  <a href="@url">Step by step instructions for configuring CiviGroup Roles and CiviGroup Group Sync</a>', array('@url' => url('http://drupal.org/node/1013546'))),
     'severity' => 2,);
     return $status;
   }
   
   //if there are no problems, return this
   $status = array(
-    'description' => 'See the <a href="/civicrm/admin/configtask">CiviCRM configuration checklist</a> for additional steps to that configuration.',
+    'description' => t('See the <a href="@url">CiviCRM configuration checklist</a> for additional steps to that configuration.', array('@url' => url('/civicrm/admin/configtask'))),
     'severity' => 0,);
   return $status;
 }
@@ -117,14 +117,14 @@ function cm_checklist_reservations_status(){
   
   if (!$reservations_item_count) {
     $status = array(
-    'description' => 'You have not configured any content types to be Buckets or Resources.  Please follow the <a href="http://drupal.org/node/1043510">step by step instructions for configuring Reservations managed content types</a>',
+    'description' => t('You have not configured any content types to be Buckets or Resources.  Please follow the <a href="@url">step by step instructions for configuring Reservations managed content types</a>', array('@url' => url('http://drupal.org/node/1043510'))),
     'severity' => 2,);
     return $status;
   }
   
   //if there are no problems, return this
   $status = array(
-    'description' => 'Reservations is configured correctly.',
+    'description' => t('Reservations is configured correctly.'),
     'severity' => 0,);
   return $status;
 }
@@ -136,15 +136,15 @@ function cm_checklist_legal_status(){
   $conditions = legal_get_conditions();
   if(!$conditions['tc_id']) {
   
-    $link = l('terms & condiftions', 'admin/config/people/legal');
+    $link = t('<a href="@url">Terms & conditions</a>', array('@url' => url('admin/config/people/legal')));
     $status = array(
-      'description' => 'Legal is enabled, but not configured.  Please add your site\'s ' . $link,
+      'description' => t('Legal is enabled, but not configured.  Please add your site\'s ') . $link,
       'severity' => 1,);
     return $status;
   }
   //if there are no problems, return this
   $status = array(
-    'description' => 'Legal is configured correctly.',
+    'description' => t('Legal is configured correctly.'),
     'severity' => 0,);
   return $status;
 }
@@ -157,7 +157,7 @@ function cm_checklist_documentation_status(){
   
   if(variable_get('cm_checklist_drupal_uid', 0) < 1) {
   
-    $link = l('To continue, add your Drupal.org user id here.', 'admin/config/communitymedia/checklist');
+    $link = t('<a href="@url">To continue, add your Drupal.org user id here</a>.', array('@url' =>('admin/config/communitymedia/checklist')));
     $status = array(
       'description' => 'In order to contribute to the documentation, you must have an account on Drupal.org.  ' . $link,
       'severity' => 1,);
@@ -166,7 +166,7 @@ function cm_checklist_documentation_status(){
   
   //if there are no problems, return this
   $status = array(
-    'description' => 'You have shown that you can edit documentation on Drupal.org.',
+    'description' => t('You have shown that you can edit documentation on Drupal.org.'),
     'severity' => 0,);
   return $status;
 }
@@ -179,7 +179,7 @@ function cm_checklist_documentation_status(){
 function cm_checklist_status(){
   //if there are no problems, return this
   $status = array(
-    'description' => 'Checklist needs a Drupal.org ID to continue the configuration.',
+    'description' => t('Checklist needs a Drupal.org ID to continue the configuration.'),
     'severity' => 0,);
   return $status;
 }

@@ -18,7 +18,7 @@ function cm_checklist_main() {
  * Menu callback; prints a page listing general help for a module.
  */
 function cm_checklist_page($name) {
-  $output = 'steps...';
+  $output = t('steps...');
   return $output;
 }
 
@@ -43,7 +43,7 @@ function cm_checklist_steps_as_list() {
      
   if (version_compare(phpversion(), '5.2') < 0) {
    $requirements['php']['severity'] = 2; 
-   $requirements['php']['description'] = $description . ' You must upgrade to PHP 5.3 or greater for several core Community Media functions to work correctly.';
+   $requirements['php']['description'] = $description . ' ' . t('You must upgrade to PHP 5.3 or greater for several core Community Media functions to work correctly.');
   }
   else {
     $requirements['php']['severity'] = 0; 
@@ -77,22 +77,22 @@ function cm_checklist_steps_as_list() {
    
   if ($memory_limit_int > ($memory_needs + 100)) {
    $requirements['memory']['severity'] = REQUIREMENT_OK; 
-   $requirements['memory']['description'] = $description . ' You have more than enough memory allocated to PHP to run the enabled modules.';
+   $requirements['memory']['description'] = $description . ' ' . t('You have more than enough memory allocated to PHP to run the enabled modules.');
   }
   
   if ($memory_limit_int > $memory_needs) {
    $requirements['memory']['severity'] = REQUIREMENT_OK; 
-   $requirements['memory']['description'] = $description . ' You have enough memory allocated to PHP to run the enabled modules.';
+   $requirements['memory']['description'] = $description . ' ' . t('You have enough memory allocated to PHP to run the enabled modules.');
   }
   
   if ($memory_limit_int = $memory_needs) {
    $requirements['memory']['severity'] = REQUIREMENT_WARNING; 
-   $requirements['memory']['description'] = $description . ' You have just enough memory allocated to PHP to run the enabled modules.  If you experience performance issues, consider allocating more memory to PHP.';
+   $requirements['memory']['description'] = $description . ' ' . t('You have just enough memory allocated to PHP to run the enabled modules.  If you experience performance issues, consider allocating more memory to PHP.');
   }
   
   if ($memory_limit_int < $memory_needs) {
     $requirements['memory']['severity'] = REQUIREMENT_ERROR; 
-    $requirements['memory']['description'] = $description . ' You will likely have performance problems unless you allocate at least ' . $memory_needs . ' of RAM to PHP.';   
+    $requirements['memory']['description'] = $description . ' ' . t('You will likely have performance problems unless you allocate at least $memory_needs of RAM to PHP.', array('$memory_needs' => $memory_needs));   
   }
   
   //Documentation Edit - Check #2
@@ -102,7 +102,7 @@ function cm_checklist_steps_as_list() {
   );
   
   $documentation_status = cm_checklist_documentation_status();
-  $requirements['documentation']['value'] = 'Installed';
+  $requirements['documentation']['value'] = t('Installed');
   $requirements['documentation']['severity'] = $documentation_status['severity'];
   $requirements['documentation']['description'] = $documentation_status['description'];
  
@@ -116,14 +116,14 @@ function cm_checklist_steps_as_list() {
   
   if (module_exists('legal')) {
     $legal_status = cm_checklist_legal_status();
-    $requirements['legal']['value'] = 'Installed';
+    $requirements['legal']['value'] = t('Installed');
     $requirements['legal']['severity'] = $legal_status['severity'];
     $requirements['legal']['description'] = $legal_status['description'];
   } 
   else {
-    $requirements['legal']['value'] = 'Not Installed';
+    $requirements['legal']['value'] = t('Not Installed');
     $requirements['legal']['severity'] = REQUIREMENT_NOT_INSTALLED; 
-    $requirements['legal']['description'] = t('The ') . l('Legal', 'http://drupal.org/project/legal') . t(' is not installed.') . t(' This module should be installed and configured before you configure anything else that allows members to log in to your site.'); 
+    $requirements['legal']['description'] = t('The <a href="@url">Legal module</a> is not installed.', array('@url' => url('http://drupal.org/project/legal'))) . ' ' . t('This module should be installed and configured before you configure anything else that allows members to log in to your site.'); 
     $requirements['legal']['description'] .= '<p>' . t('Installation Difficulty') .': <b>' . t('Easy') . '</b></p>';
   }
   
@@ -135,14 +135,14 @@ function cm_checklist_steps_as_list() {
    
   if (module_exists('cm_show')) {
     $cm_show_status = cm_show_status();
-    $requirements['cm_show']['value'] = 'Installed';
+    $requirements['cm_show']['value'] = t('Installed');
     $requirements['cm_show']['severity'] = $cm_show_status['severity']; 
     $requirements['cm_show']['description'] = $cm_show_status['description'];
   } 
   else {
-    $requirements['cm_show']['value'] = 'Not Installed';
+    $requirements['cm_show']['value'] = t('Not Installed');
     $requirements['cm_show']['severity'] = REQUIREMENT_NOT_INSTALLED; 
-    $requirements['cm_show']['description'] = t('The ') . l('Community Media Show', 'http://drupal.org/project/cm_show') . t(' module is not installed.') . t(' Show manages the core metadata required to exchange video with other sites.  Show can be used with an existing encoding workflows or with a workflow manage by other Drupal modules.'); 
+    $requirements['cm_show']['description'] = t('The <a href="@url">Community Media Show</a> module is not installed.', array('@url' => url('http://drupal.org/project/cm_show'))) . ' ' . t(' Show manages the core metadata required to exchange video with other sites.  Show can be used with an existing encoding workflows or with a workflow manage by other Drupal modules.'); 
     $requirements['cm_show']['description'] .= '<p>' . t('Installation Difficulty') .': <b>' . t('Moderate') . '</b></p>';
    
   }
@@ -155,14 +155,14 @@ function cm_checklist_steps_as_list() {
   
   if (module_exists('pbcore')) {
     $pbcore_status = pbcore_status();
-    $requirements['pbcore']['value'] = 'Installed';
+    $requirements['pbcore']['value'] = t('Installed');
     $requirements['pbcore']['severity'] = $pbcore_status['severity'];
     $requirements['pbcore']['description'] = $pbcore_status['description'];
   } 
   else {
-    $requirements['pbcore']['value'] = 'Not Installed';
+    $requirements['pbcore']['value'] = t('Not Installed');
     $requirements['pbcore']['severity'] = REQUIREMENT_NOT_INSTALLED; 
-    $requirements['pbcore']['description'] = t('The ') . l('PBCore', 'http://drupal.org/project/pbcore') . t(' module enables producers to categorize their shows based on this metadata dictionary. It is required Show, but is not automatically configured.'); 
+    $requirements['pbcore']['description'] = t('The <a href="@url">PBCore</a> module enables producers to categorize their shows based on this metadata dictionary. It is required Show, but is not automatically configured.', array('@url' => url('http://drupal.org/project/pbcore'))); 
     $requirements['pbcore']['description'] .= '<p>' . t('Installation Difficulty') .': <b>' . t('Easy') . '</b></p>';
   }
   
@@ -174,14 +174,14 @@ function cm_checklist_steps_as_list() {
   
   if (module_exists('creativecommons')) {
     $creativecommons_status = creativecommons_status();
-    $requirements['creativecommons']['value'] = 'Installed';
+    $requirements['creativecommons']['value'] = t('Installed');
     $requirements['creativecommons']['severity'] = $creativecommons_status['severity'];
     $requirements['creativecommons']['description'] = $creativecommons_status['description'];
   } 
   else {
-    $requirements['creativecommons']['value'] = 'Not Installed';
+    $requirements['creativecommons']['value'] = t('Not Installed');
     $requirements['creativecommons']['severity'] = REQUIREMENT_NOT_INSTALLED; 
-    $requirements['creativecommons']['description'] = l('Creative Commons', 'http://drupal.org/project/creativecommons') . t(' adds licensing options to Show.  Managing rights is complicated and you should understand the difference is the Creative Commons license before enabling this module.'); 
+    $requirements['creativecommons']['description'] = t('<a href="@url">Creative Commons</a> adds licensing options to Show. Managing rights is complicated and you should understand the difference is the Creative Commons license before enabling this module.', array('@url' => url('http://drupal.org/project/creativecommons'))); 
     $requirements['creativecommons']['description'] .= '<p>' . t('Installation Difficulty') .': <b>' . t('Easy') . '</b></p>';
   }
 
@@ -194,14 +194,14 @@ function cm_checklist_steps_as_list() {
   
   if (module_exists('om_crew_connect')) {
     $om_crew_connect_status = om_crew_connect_status();
-    $requirements['om_crew_connect']['value'] = 'Installed';
+    $requirements['om_crew_connect']['value'] = t('Installed');
     $requirements['om_crew_connect']['severity'] = $om_crew_connect_status['severity'];
     $requirements['om_crew_connect']['description'] = $om_crew_connect_status['description'];
   } 
   else {
-    $requirements['om_crew_connect']['value'] = 'Not Installed';
+    $requirements['om_crew_connect']['value'] = t('Not Installed');
     $requirements['om_crew_connect']['severity'] = REQUIREMENT_NOT_INSTALLED; 
-    $requirements['om_crew_connect']['description'] = t('The ') . l('Crew Connect', 'http://drupal.org/project/om_crew_connect') . t(' is not installed.') . t(' Use this is a simple tool to help producers connect with each other.  Enabling Crew Connect gives your producers a reason to login to your site and gives you experience managing users and permissions.'); 
+    $requirements['om_crew_connect']['description'] = t('The <a href="@url">Crew Connect</a> module is not installed.', array('@url' => url('http://drupal.org/project/om_crew_connect'))) . t(' Use this is a simple tool to help producers connect with each other.  Enabling Crew Connect gives your producers a reason to login to your site and gives you experience managing users and permissions.'); 
     $requirements['om_crew_connect']['description'] .= '<p>' . t('Installation Difficulty') .': <b>' . t('Easy') . '</b></p>';
   }
   
@@ -213,14 +213,14 @@ function cm_checklist_steps_as_list() {
   
   if (module_exists('cm_airing')) {
     $cm_airing_status = cm_airing_status();
-    $requirements['cm_airing']['value'] = 'Installed';
+    $requirements['cm_airing']['value'] = t('Installed');
     $requirements['cm_airing']['severity'] = $cm_airing_status['severity'];
     $requirements['cm_airing']['description'] = $cm_airing_status['description'];
   } 
   else {
-    $requirements['cm_airing']['value'] = 'Not Installed';
+    $requirements['cm_airing']['value'] = t('Not Installed');
     $requirements['cm_airing']['severity'] = REQUIREMENT_NOT_INSTALLED; 
-    $requirements['cm_airing']['description'] = t('The ') . l('Community Media Airing', 'http://drupal.org/project/cm_airing') . t(' is not installed.') . t(' Airing nodes are used to display scheduling information from playback server RSS. It includes FullCalendar based Views and Blocks that display upcoming Airings.  When Airing Show Sync is configured, Upcoming airings of a Show or all Shows in a Project can be displayed.'); 
+    $requirements['cm_airing']['description'] = t('The <a href="@url">Community Media Airing</a> module is not installed.', array('@url' => url('http://drupal.org/project/cm_airing'))) . t(' Airing nodes are used to display scheduling information from playback server RSS. It includes FullCalendar based Views and Blocks that display upcoming Airings.  When Airing Show Sync is configured, Upcoming airings of a Show or all Shows in a Project can be displayed.'); 
     $requirements['cm_airing']['description'] .= '<p>' . t('Installation Difficulty') .': <b>' . t('Moderate') . '</b></p>';
   }
   
@@ -232,14 +232,14 @@ function cm_checklist_steps_as_list() {
   
   if (module_exists('civicrm')) {
     $cm_checklist_civicrm_status = cm_checklist_civicrm_status();
-    $requirements['civicrm']['value'] = 'Installed.';
+    $requirements['civicrm']['value'] = t('Installed.');
     $requirements['civicrm']['severity'] = $cm_checklist_civicrm_status['severity'];
     $requirements['civicrm']['description'] = $cm_checklist_civicrm_status['description'];
   } 
   else {
-    $requirements['civicrm']['value'] = 'Not Installed';
+    $requirements['civicrm']['value'] = t('Not Installed');
     $requirements['civicrm']['severity'] = REQUIREMENT_NOT_INSTALLED; 
-    $requirements['civicrm']['description'] =  l('CiviCRM', 'http://drupal.org/project/civicrm') . t(' '); 
+    $requirements['civicrm']['description'] =  t('<a href="@url">CiviCRM</a>', array('@url' => url('http://drupal.org/project/civicrm'))); 
     $requirements['civicrm']['description'] .= '<p>' . t('Installation Difficulty') .': <b>' . t('Moderate') . '</b></p>';
   }
   
@@ -251,14 +251,14 @@ function cm_checklist_steps_as_list() {
 
   if (module_exists('cm_project')) {
     $cm_project_status = cm_project_status();
-    $requirements['cm_project']['value'] = 'Installed';
+    $requirements['cm_project']['value'] = t('Installed');
     $requirements['cm_project']['severity'] = $cm_project_status['severity']; 
     $requirements['cm_project']['description'] = $cm_project_status['description'];
   } 
   else {
-    $requirements['cm_project']['value'] = 'Not Installed';
+    $requirements['cm_project']['value'] = t('Not Installed');
     $requirements['cm_project']['severity'] = REQUIREMENT_NOT_INSTALLED; 
-    $requirements['cm_project']['description'] = t('The ') . l('Community Media Project', 'http://drupal.org/project/cm_project') . t(' module is not installed.') . t(' Use this module to group Shows and Reservations.  The module leverages Organic Groups (OG).  If you decide to allow producers to maintain public Project pages, there are dozens of popular OG modules that extend social networking features.'); 
+    $requirements['cm_project']['description'] = t('The <a href="@url">Community Media Project</a> module is not installed.', array('@url' => url('http://drupal.org/project/cm_project'))) . t(' Use this module to group Shows and Reservations.  The module leverages Organic Groups (OG).  If you decide to allow producers to maintain public Project pages, there are dozens of popular OG modules that extend social networking features.'); 
     $requirements['cm_project']['description'] .= '<p>' . t('Installation Difficulty') .': <b>' . t('Moderate') . '</b></p>';
   }
    
@@ -270,14 +270,14 @@ function cm_checklist_steps_as_list() {
   );
   if (module_exists('reservations')) {
     $cm_checklist_reservations_status = cm_checklist_reservations_status();
-    $requirements['reservations']['value'] = 'Installed.';
+    $requirements['reservations']['value'] = t('Installed.');
     $requirements['reservations']['severity'] = $cm_checklist_reservations_status['severity'];
     $requirements['reservations']['description'] = $cm_checklist_reservations_status['description'];
   } 
   else {
-    $requirements['reservations']['value'] = 'Not Installed';
+    $requirements['reservations']['value'] = t('Not Installed');
     $requirements['reservations']['severity'] = REQUIREMENT_NOT_INSTALLED; 
-    $requirements['reservations']['description'] = t('The ') . l('Reservations', 'http://drupal.org/project/reservations') . t(' module is not installed.') . t(' Used to Manage Equipment Reservations and Checkout process'); 
+    $requirements['reservations']['description'] = t('The <a href="@url">Reservations</a> module is not installed.', array('url' => url('http://drupal.org/project/reservations'))) . t(' Used to Manage Equipment Reservations and Checkout process'); 
     $requirements['reservations']['description'] .= '<p>' . t('Installation Difficulty') .': <b>' . t('Difficult') . '</b></p>';
    
   }
